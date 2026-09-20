@@ -4,10 +4,10 @@ import { ALL_AUTHORS } from "../queries";
 
 import { AuthorSetBirthyear } from "./AuthorSetBirthyear";
 
-const Authors = (props) => {
+const Authors = ({ show, showSetBirthyear }) => {
   const result = useQuery(ALL_AUTHORS);
 
-  if (!props.show || !result.data) {
+  if (!show || !result.data) {
     return null;
   }
   const authors = result.data.allAuthors;
@@ -30,7 +30,7 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
-      <AuthorSetBirthyear authors={authors} />
+      {showSetBirthyear && <AuthorSetBirthyear authors={authors} />}
     </div>
   );
 };

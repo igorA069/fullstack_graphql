@@ -1,4 +1,3 @@
-const { v1: uuid } = require("uuid");
 const jwt = require("jsonwebtoken");
 
 const { GraphQLError } = require("graphql/error");
