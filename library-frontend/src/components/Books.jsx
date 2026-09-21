@@ -4,16 +4,16 @@ import { useQuery } from "@apollo/client/react";
 
 import { ALL_BOOKS } from "../queries";
 
-const Books = (props) => {
+export const Books = (props) => {
   const [selectedGenres, setSelectedGenres] = useState(new Set());
 
-  const result = useQuery(ALL_BOOKS);
+  const allBooksResult = useQuery(ALL_BOOKS);
 
-  if (!props.show || !result.data) {
+  if (!props.show || !allBooksResult.data) {
     return null;
   }
 
-  const books = result.data.allBooks;
+  const books = allBooksResult.data.allBooks;
 
   // transform an array of books that has an array of genres each into a set of overall occurring genres:
   const genres = books.reduce((accumulator, currentValue) => {
@@ -71,5 +71,3 @@ const Books = (props) => {
     </div>
   );
 };
-
-export default Books;

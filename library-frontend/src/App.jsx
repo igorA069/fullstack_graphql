@@ -6,9 +6,10 @@ import { useMutation } from "@apollo/client/react";
 import { LOGIN } from "./queries";
 
 import Authors from "./components/Authors";
-import Books from "./components/Books";
 import NewBook from "./components/NewBook";
 import Login from "./components/Login";
+import { Books } from "./components/Books";
+import { RecommendedBooks } from "./components/RecommendedBooks";
 
 const App = () => {
   const [page, setPage] = useState("authors");
@@ -48,6 +49,9 @@ const App = () => {
         {isUserLoggedIn && (
           <button onClick={() => setPage("add")}>add book</button>
         )}
+        {isUserLoggedIn && (
+          <button onClick={() => setPage("recommended")}>recommended</button>
+        )}
         {isUserLoggedIn && <button onClick={() => onLogout()}>logout</button>}
         {!isUserLoggedIn && (
           <button onClick={() => setPage("login")}>login</button>
@@ -59,6 +63,8 @@ const App = () => {
       <Books show={page === "books"} />
 
       <NewBook show={page === "add"} />
+
+      <RecommendedBooks show={page === "recommended"} />
 
       <Login show={page === "login"} onLogin={onLogin} />
     </div>
