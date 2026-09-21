@@ -4,6 +4,8 @@ import { useQuery } from "@apollo/client/react";
 
 import { ALL_BOOKS } from "../queries";
 
+import { FilteredBooks } from "./common/FilteredBooks";
+
 export const Books = (props) => {
   const [selectedGenres, setSelectedGenres] = useState(new Set());
 
@@ -24,28 +26,7 @@ export const Books = (props) => {
   return (
     <div>
       <h2>books</h2>
-      <table>
-        <tbody>
-          <tr>
-            <th></th>
-            <th>author</th>
-            <th>published</th>
-          </tr>
-          {books.map(
-            (book) =>
-              (selectedGenres.size === 0 /* if no filters are set */ ||
-                book.genres.some((genre) =>
-                  selectedGenres.has(genre),
-                )) /* if any of the book's genres are among the filter genres */ && (
-                <tr key={book.id}>
-                  <td>{book.title}</td>
-                  <td>{book.author.name}</td>
-                  <td>{book.published}</td>
-                </tr>
-              ),
-          )}
-        </tbody>
-      </table>
+      <FilteredBooks books={books} selectedGenres={selectedGenres} />
 
       <h2>Filter by genre:</h2>
 
