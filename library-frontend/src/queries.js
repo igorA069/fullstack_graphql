@@ -36,6 +36,12 @@ export const ME = gql`
   }
 `;
 
+export const ALL_GENRES = gql`
+  query {
+    allGenres
+  }
+`;
+
 // mutations:
 
 export const ADD_BOOK = gql`

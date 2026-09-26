@@ -37,6 +37,10 @@ const resolvers = {
     allAuthors: async () => await Author.find({}),
 
     me: (root, args, context) => context.currentUser,
+
+    allGenres: async () => {
+      return await Book.distinct("genres");
+    },
   },
 
   Mutation: {
