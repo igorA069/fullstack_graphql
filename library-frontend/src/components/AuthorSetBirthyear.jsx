@@ -31,6 +31,7 @@ export const AuthorSetBirthyear = ({ authors }) => {
             name
             <select
               value={authorName}
+              name="name"
               onChange={(e) => {
                 setAuthorName(e.target.value);
                 const defaultBirthYear = authors.find(

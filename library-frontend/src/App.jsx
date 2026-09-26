@@ -16,10 +16,16 @@ const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     localStorage.getItem("LIBRARY_ACCESS_TOKEN") != null,
   );
+  const [notification, setNotification] = useState("");
 
   const apolloClient = useApolloClient();
 
   const [loginMutation] = useMutation(LOGIN);
+
+  const showNotification = (text) => {
+    setNotification(text);
+    setTimeout(() => setNotification(""), 5000);
+  };
 
   const onLogout = async () => {
     localStorage.removeItem("LIBRARY_ACCESS_TOKEN");
@@ -37,7 +43,7 @@ const App = () => {
         setIsUserLoggedIn(true);
         setPage("authors");
       },
-      onError: (error) => console.log(error.message),
+      onError: (error) => showNotification("login failed"),
     });
   };
 
@@ -50,13 +56,15 @@ const App = () => {
           <button onClick={() => setPage("add")}>add book</button>
         )}
         {isUserLoggedIn && (
-          <button onClick={() => setPage("recommended")}>recommended</button>
+          <button onClick={() => setPage("recommended")}>recommend</button>
         )}
         {isUserLoggedIn && <button onClick={() => onLogout()}>logout</button>}
         {!isUserLoggedIn && (
           <button onClick={() => setPage("login")}>login</button>
         )}
       </div>
+
+      <div>{notification}</div>
 
       <Authors show={page === "authors"} showSetBirthyear={isUserLoggedIn} />
 

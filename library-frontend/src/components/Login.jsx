@@ -18,7 +18,7 @@ const Login = ({ show, onLogin }) => {
       <form onSubmit={submit}>
         <div>
           <label>
-            name
+            username
             <input
               value={username}
               onChange={({ target }) => setUsername(target.value)}
