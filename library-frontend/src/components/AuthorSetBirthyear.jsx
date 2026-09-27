@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { useMutation } from "@apollo/client/react";
+import { useApolloClient } from "@apollo/client/react";
 
 import { ALL_AUTHORS, EDIT_AUTHOR } from "../queries";
 
@@ -8,9 +9,9 @@ export const AuthorSetBirthyear = ({ authors }) => {
   const [authorName, setAuthorName] = useState("");
   const [birthYear, setBirthYear] = useState("");
 
-  const [editAuthorMutation] = useMutation(EDIT_AUTHOR, {
-    refetchQueries: [ALL_AUTHORS],
-  });
+  const client = useApolloClient();
+
+  const [editAuthorMutation] = useMutation(EDIT_AUTHOR);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +19,9 @@ export const AuthorSetBirthyear = ({ authors }) => {
       variables: { name: authorName, setBornTo: parseInt(birthYear) },
       onError: (error) => {
         console.log(error);
+      },
+      onCompleted: async () => {
+        await client.refetchQueries({ include: [ALL_AUTHORS] });
       },
     });
   };

@@ -11,6 +11,8 @@ const Login = ({ show, onLogin }) => {
   const submit = async (event) => {
     event.preventDefault();
     onLogin(username, password);
+    setUsername("");
+    setPassword("");
   };
 
   return (
