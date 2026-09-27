@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useApolloClient } from "@apollo/client/react";
 import { useMutation } from "@apollo/client/react";
 
-import { LOGIN } from "./queries";
+import { LOGIN, ME } from "./queries";
 
 import Authors from "./components/Authors";
 import NewBook from "./components/NewBook";
@@ -37,10 +37,11 @@ const App = () => {
   const onLogin = (username, password) => {
     loginMutation({
       variables: { username, password },
-      onCompleted: (response) => {
+      onCompleted: async (response) => {
         const accessToken = response.login.value;
         localStorage.setItem("LIBRARY_ACCESS_TOKEN", accessToken);
         setIsUserLoggedIn(true);
+        await apolloClient.refetchQueries({ include: [ME] });
         setPage("authors");
       },
       onError: (error) => showNotification("login failed"),

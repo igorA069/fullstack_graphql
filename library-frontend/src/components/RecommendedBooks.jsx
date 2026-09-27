@@ -8,7 +8,12 @@ export const RecommendedBooks = (props) => {
   const allBooksResult = useQuery(ALL_BOOKS);
   const meResult = useQuery(ME);
 
-  if (!props.show || !allBooksResult.data || !meResult.data) {
+  if (
+    !props.show ||
+    !allBooksResult.data ||
+    !meResult.data ||
+    !meResult.data.me
+  ) {
     return null;
   }
 
