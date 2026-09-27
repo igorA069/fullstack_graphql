@@ -26,7 +26,15 @@ export const Books = (props) => {
   return (
     <div>
       <h2>books</h2>
-      <FilteredBooks books={books} />
+      {selectedGenre && (
+        <>
+          <br />
+          in genre <strong>{selectedGenre}</strong>
+          <br />
+        </>
+      )}
+      <FilteredBooks books={books} genre={null} />
+      {/* filtering by genre is done by DB and not by frontend */}
       <h2>Filter by genre:</h2>
       {allGenres.map((genre) => (
         <button key={genre} onClick={() => setSelectedGenre(genre)}>
