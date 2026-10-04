@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "cross-env NODE_ENV=dev node --watch index.js",
-    "test": "cross-env NODE_ENV=test  echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=dev npx dotenv run -f .env.dev -- node --watch index.js",
+    "test": "cross-env NODE_ENV=test npx dotenv run -f .env.test --  echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
